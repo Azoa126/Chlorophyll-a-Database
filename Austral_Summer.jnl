@@ -1,0 +1,22 @@
+use chlor.nc
+let chl_December = chl1_mean[d=1, l=5:257:12]
+list chl_December[x=85,y=4s]
+LET chl_December_avg = chl_December[x=@ave,y=@ave, l=@AVE]
+LIST chl_December_avg
+let chl_jan = chl1_mean[d=1, l=6:257:12]
+list chl_jan[x=85,y=4s]
+LET chl_jan_avg = chl_jan[x=@ave,y=@ave, l=@AVE]
+LIST chl_jan_avg
+let chl_feb = chl1_mean[d=1, l=7:250:12]
+list chl_feb[x=85,y=4s]
+LET chl_feb_avg = chl_feb[x=@ave,y=@ave, l=@AVE]
+LIST chl_feb_avg
+let Austral_Summer = chl_December[l=1:21]*(31/90.25) + chl_jan[l=1:21]*(31/90.25) + chl_feb[l=1:21]*(28.25/90.25)
+let Austral_Summer_avg = Austral_Summer[x=@ave,y=@ave, l=@AVE]
+Keymark 1
+shade/lev=(0 0.5 0.1)(0.5 1.0 0.5)(inf)/nolab Austral_Summer[l=@AVE]
+label 130 -25 0 0 0.20 "Australia"
+label/nouser 2 6.5 0 0 0.15 "Average=`Austral_Summer_avg`"
+label/nouser 4.0 -0.8 0 0 0.15 "Austral Summer Chlorophyll-a concentration (mg/m^3) in the<nl>south-east Indian Ocean (00^oN- 80^oE, 50^oS- 147^oE),<nl>averaged in the period from August 2002 to December 2023"
+
+

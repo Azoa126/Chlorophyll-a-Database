@@ -1,0 +1,29 @@
+! 29 January 2025 
+
+! This program plots the map of average December chlorophyll-a concentrations, in the south-east Indian Ocean (0° to 50°S, 80°E to 147°E), averaged in the time-period from August 2002 to December 2023. 
+
+! The Globcolour monthly MODIS product of chlorophyll-a concentration data was downloaded from the webpage https://hermes.acri.fr/index.php?class=archive , on 22 January 2025. 
+! The data of chlorophyll-a concnetration was monthly and in the period from August 2002 to December 2023. 
+! The data has a spatial resolution of 4 km, and is in the area from (0N to 50S, 80E to 147E). 
+
+! The reference for the data are as follows: 
+! O Reilly, J.E., and 24 Coauthors, 2000: SeaWiFS Postlaunch Calibration and Validation Analyses, Part 3. NASA Tech. Memo. 2000-206892, Vol. 11, S.B. Hooker and E.R. Firestone, Eds., NASA Goddard Space Flight Center. http://oceancolor.gsfc.nasa.gov/cms/reprocessing/r2009/ocv6
+! The reference for GSM is as follows: 
+! Maritorena, S. and Siegel, D.A. 2005. Consistent Merging of Satellite Ocean Colour Data Sets Using a Bio-
+Optical Model. Remote Sensing of Environment, 94, 4, 429-440. 
+
+use chlor.nc
+let chl_june  = chl1_mean[d=1, l=5:257:12]
+list chl_December[x=85,y=4s]
+LET chl_December_avg = chl_December[x=@ave,y=@ave, l=@AVE]
+LIST chl_December_avg 
+list chl_December[x=@ave,y=@ave]             
+Keymark 1
+label 130 -25 0 0 0.20 "Australia"
+shade/lev=(0 0.5 0.1)(0.5 1 0.5)(inf) chl_December[l=1:22@ave]
+shade/lev=(0 0.5 0.1)(0.5 1.0 0.5)(inf)/nolab chl_December[l=1:22@ave]
+label 130 -25 0 0 0.20 "Australia"
+label/nouser 2 6.5 0 0 0.15 "Average=`chl_December_avg, prec=3`"
+label/nouser -0.8 4 0 90 0.15 "Latitude"
+label/nouser 4 -0.8 0 90 0.15 "Longitude"
+label/nouser 4.0 -0.8 0 0 0.17 "December Chlorophyll-a concentration (mg/m^3) in the<nl>south-east Indian Ocean (00^oN- 80^oE, 50^oS- 147^oE),<nl>averaged in the period from August 2002 to December 2023"

@@ -1,0 +1,22 @@
+use chlor.nc
+let chl_march = chl1_mean[d=1, l=8:257:12]
+list chl_march[x=85,y=4s]
+LET chl_march_avg = chl_December[x=@ave,y=@ave, l=@AVE]
+LIST chl_march_avg
+let chl_april = chl1_mean[d=1, l=9:257:12]
+list chl_april[x=85,y=4s]
+LET chl_april_avg = chl_april[x=@ave,y=@ave, l=@AVE]
+LIST chl_april_avg
+let chl_May = chl1_mean[d=1, l=10:250:12]
+list chl_May[x=85,y=4s]
+LET chl_May_avg = chl_May[x=@ave,y=@ave, l=@AVE]
+LIST chl_May_avg
+let Austral_Autumn = chl_December[l=1:21]*(31/90.25) + chl_april[l=1:21]*(31/90.25) + chl_May[l=1:21]*(28.25/90.25)
+let Austral_Autumn_avg = Austral_Autumn[x=@ave,y=@ave, l=@AVE]
+Keymark 1
+shade/lev=(0 0.5 0.1)(0.5 1.0 0.5)(inf)/nolab Austral_Autumn[l=@AVE]
+label 130 -25 0 0 0.20 "Australia"
+label/nouser 2 6.5 0 0 0.15 "Average=`Austral_Autumn_avg`"
+label/nouser 4.0 -0.8 0 0 0.15 "Austral Autumn Chlorophyll-a concentration (mg/m^3) in the<nl>south-east Indian Ocean (00^oN- 80^oE, 50^oS- 147^oE),<nl>averaged in the period from August 2002 to December 2023"
+
+
