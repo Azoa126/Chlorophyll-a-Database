@@ -1,0 +1,33 @@
+! 30 January 2025 
+
+! This program plots the basin-average line graphs along with its trend-line of February chlorophyll-a concentrations, in the south-east Indian Ocean (0° to 50°S, 80°E to 147°E), averaged in the time-period from August 2002 to December 2023. 
+
+! The Globcolour monthly MODIS product of chlorophyll-a concentration data was downloaded from the webpage https://hermes.acri.fr/index.php?class=archive , on 22 January 2025. 
+! The data of chlorophyll-a concnetration was monthly and in the period from August 2002 to December 2023. 
+! The data has a spatial resolution of 4 km, and is in the area from (0N to 50S, 80E to 147E). 
+
+! The reference for the data are as follows: 
+! O Reilly, J.E., and 24 Coauthors, 2000: SeaWiFS Postlaunch Calibration and Validation Analyses, Part 3. NASA Tech. Memo. 2000-206892, Vol. 11, S.B. Hooker and E.R. Firestone, Eds., NASA Goddard Space Flight Center. http://oceancolor.gsfc.nasa.gov/cms/reprocessing/r2009/ocv6
+! The reference for GSM is as follows: 
+! Maritorena, S. and Siegel, D.A. 2005. Consistent Merging of Satellite Ocean Colour Data Sets Using a Bio-Optical Model. Remote Sensing of Environment, 94, 4, 429-440. 
+
+SET MEMORY/MAX=10000
+use Chlorophyll_a_Conc_Globcolour_GSM_00N50S080E147E_200208_202312.nc
+LET chl_oct = chl1_mean[x=@ave,Y=@ave, l=3:257:12]
+PLOT/nolab chl_oct[l=1:22]
+LET p=t[l=1:22]
+LET q=chl_oct[l=1:22]
+SET GRID q
+GO regresst
+
+LET slope_per_year=slope*60*60*24*365.25
+LET chlorx=chl_oct[l=1:22@ave]
+
+PLOT/VS/OVER/LINE/COLOUR=2/TITLE="Trendline" p, qhat
+LABEL/nouser 4.0 -0.8 0 0 0.15 "October Chlorophyll-a concentration (mg/m^3) and trendline ((mg/m^3)/yr) in the<nl>south-east Indian Ocean (00^oN- 50^oS, 80^oE- 147^oE),<nl>area averaged in the south-east Indian Ocean from August 2002 to December 2023"
+LABEL/Nouser -0.8 3 0 90 0.12 "Chlorophyll-a Concentration (mg/m^3)"
+LABEL/Nouser 0 6.7 -1 0 0.12  "Average Chlorophyll-a Concentration = `Chlorx, PRECISION=4` mg/m^3"
+LABEL/Nouser 0 6.4 -1 0 0.12 "Coefficient of Determination (R^2) = `RSQUARE, PRECISION=4`"
+! LABEL/Nouser 0 6.1 -1 0 0.12 "y = `Slope_per_year, PRECISION=4` x + `intercep, PRECISION=4`"
+FRAME/File="Chlorophyll_a_conc_area_avg_10_Oct_SEIO.gif"
+FRAME/File="Chlorophyll_a_conc_area_avg_10_Oct_SEIO.pdf"
